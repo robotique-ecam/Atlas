@@ -1,0 +1,24 @@
+{
+  "name": "atlas",
+  "version": "0.0.1",
+  "description": "Atas .rbsd files viewer",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3wnbr1/Atlas.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/3wnbr1/Atlas/issues"
+  },
+  "homepage": "https://github.com/3wnbr1/Atlas#readme",
+  "devDependencies": {
+    "electron": "^8.3.0",
+    "jquery": "^3.5.1",
+    "jquery-ui": "^1.12.1"
+  }
+}
