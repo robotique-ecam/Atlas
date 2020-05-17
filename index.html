@@ -18,12 +18,12 @@
       }
     </style>
     <script>
-    window.$ = window.jQuery = require('jquery')
-    require('jquery-ui-dist/jquery-ui')
+      window.$ = window.jQuery = require('jquery')
+      require('jquery-ui-dist/jquery-ui')
+      require('./scripts/jquery.dialogextend.min.js')
     </script>
-    <script src="scripts/jquery.dialogextend.min.js"></script>
-    <script src="scripts/ace.js"></script>
-    <script src="scripts/webots.min.js"></script>
+    <script src="./scripts/ace.js"></script>
+    <script src="./scripts/webots.min.js"></script>
     <script>
       function init() {
           var view = new webots.View(document.getElementById("view3d"));
