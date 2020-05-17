@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 
 function createWindow () {
   // Create the browser window.
@@ -13,7 +13,13 @@ function createWindow () {
 
   // and load the index.html of the app.
 
+  win.hide()
   win.loadFile('index.html')
+
+
+  ipcMain.on('asynchronous-message', (event, arg) => {
+    win.show()
+  })
 
   // Open the DevTools.
   // win.webContents.openDevTools()

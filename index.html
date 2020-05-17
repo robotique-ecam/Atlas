@@ -1,39 +1,58 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title></title>
-    <link type="text/css" href="https://www.cyberbotics.com/jquery-ui/1.11.4/jquery-ui.min.css" rel="stylesheet"/>
-    <link type="text/css" href="https://www.cyberbotics.com/wwi/R2020a/wwi.css" rel="stylesheet"/>
-    <style>
-      html, body {
-        padding: 0;
-        height: 100%;
-        margin: 0;
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title></title>
+  <link type="text/css" href="https://www.cyberbotics.com/jquery-ui/1.11.4/jquery-ui.min.css" rel="stylesheet" />
+  <link type="text/css" href="https://www.cyberbotics.com/wwi/R2020a/wwi.css" rel="stylesheet" />
+  <style>
+    html,
+    body {
+      padding: 0;
+      height: 100%;
+      margin: 0;
+    }
+
+    #view3d {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <script>
+    const {
+      ipcRenderer
+    } = require('electron')
+    window.$ = window.jQuery = require('jquery')
+    require('jquery-ui-dist/jquery-ui')
+    require('./scripts/jquery.dialogextend.min.js')
+  </script>
+  <script src="./scripts/ace.js"></script>
+  <script src="./scripts/webots.min.js"></script>
+  <script>
+    var view;
+
+    function init() {
+      view = new webots.View(document.getElementById("view3d"));
+      view.open("index.x3d");
+      view.setAnimation("index.json", "play", true);
+    }
+
+    setTimeout(function() {
+      view.animation.superOnReady = view.animation.onReady
+      view.animation.onReady = function() {
+        ipcRenderer.send('asynchronous-message', 'show');
+        view.animation.superOnReady()
       }
-      #view3d {
-        height: 100%;
-        width: 100%;
-      }
-    </style>
-    <script>
-      window.$ = window.jQuery = require('jquery')
-      require('jquery-ui-dist/jquery-ui')
-      require('./scripts/jquery.dialogextend.min.js')
-    </script>
-    <script src="./scripts/ace.js"></script>
-    <script src="./scripts/webots.min.js"></script>
-    <script>
-      function init() {
-          var view = new webots.View(document.getElementById("view3d"));
-          view.open("index.x3d");
-          view.setAnimation("index.json", "play", true);
-      }
-      window.addEventListener("load", init, false);
-    </script>
-  </head>
-  <body>
-    <div id="view3d"></div>
-  </body>
+    }, 2000); // 200ms later
+
+    window.addEventListener("load", init, false);
+  </script>
+</head>
+
+<body>
+  <div id="view3d"></div>
+</body>
+
 </html>
