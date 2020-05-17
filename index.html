@@ -17,11 +17,13 @@
         width: 100%;
       }
     </style>
-    <script>window.$ = window.jQuery = require('jquery');</script>
-    <script src="https://www.cyberbotics.com/jquery-ui/1.11.4/jquery-ui.min.js"></script>
-    <script src="https://www.cyberbotics.com/jquery-dialogextend/2.0.4/jquery.dialogextend.min.js"></script>
-    <script src="https://www.cyberbotics.com/ace/1.2.0/ace.js"></script>
-    <script src="https://www.cyberbotics.com/wwi/R2020a/webots.min.js"></script>
+    <script>
+    window.$ = window.jQuery = require('jquery')
+    require('jquery-ui-dist/jquery-ui')
+    </script>
+    <script src="scripts/jquery.dialogextend.min.js"></script>
+    <script src="scripts/ace.js"></script>
+    <script src="scripts/webots.min.js"></script>
     <script>
       function init() {
           var view = new webots.View(document.getElementById("view3d"));
