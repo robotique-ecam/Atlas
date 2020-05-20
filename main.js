@@ -1,23 +1,64 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog } = require('electron')
+const fs = require('fs')
+const path = require('path')
+var temp = require('temp')
+var AdmZip = require('adm-zip');
+
+// Automatically track and cleanup files at exit
+temp.track();
+
+var file_path = null
+
+
+function open_rbsd_file(rbsd_path) {
+  var zip = new AdmZip(rbsd_path);
+  var temp_dir = temp.mkdirSync('atlas')
+  zip.extractAllTo(temp_dir, /* overwrite */ true)
+  return temp_dir
+}
+
+function get_moves_path(tempDir) {
+  return path.join(tempDir, 'moves.json')
+}
+
 
 function createWindow () {
   // Create the browser window.
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    show: false,
     webPreferences: {
       nodeIntegration: true
     }
   })
 
   // and load the index.html of the app.
-
-  win.hide()
   win.loadFile('index.html')
 
+  ipcMain.on('show-open-dialog', (event, arg)=> {
+    const options = {
+      title: 'Open a Robot Simulation Data file',
+      buttonLabel: 'Load',
+      filters: [
+        { name: 'rbsd', extensions: ['rbsd'] }
+      ]
+    }
+    dialog.showOpenDialog(null, options, (filePaths) => {
+      event.sender.send('open-dialog-paths-selected', filePaths)
+    });
+  })
 
   ipcMain.on('asynchronous-message', (event, arg) => {
     win.show()
+  })
+
+  ipcMain.on('get-rbsd-moves', (event, arg) => {
+    if (file_path !== null) {
+      arg = file_path
+    }
+    var rbsd_path = open_rbsd_file(arg)
+    event.returnValue = get_moves_path(rbsd_path)
   })
 
   // Open the DevTools.
@@ -28,6 +69,10 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(createWindow)
+
+app.on('open-file', (event, path) => {
+  file_path = path
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

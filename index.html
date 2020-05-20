@@ -34,20 +34,23 @@
     var view;
 
     function init() {
+      var animation_file = ipcRenderer.sendSync('get-rbsd-moves', '/Users/ewen/Downloads/ros-master-b2249f93.rbsd')
       view = new webots.View(document.getElementById("view3d"));
       view.open("index.x3d");
-      view.setAnimation("index.json", "play", true);
+      console.log(animation_file)
+      view.setAnimation(animation_file, "play", true);
     }
 
-    setTimeout(function() {
-      view.animation.superOnReady = view.animation.onReady
-      view.animation.onReady = function() {
-        ipcRenderer.send('asynchronous-message', 'show');
-        view.animation.superOnReady()
-      }
-    }, 2000); // 200ms later
-
     window.addEventListener("load", init, false);
+    var loading_ckecker = setInterval(isDoneLoading, 1000)
+
+    function isDoneLoading() {
+      if (!window.TextureLoader.hasPendingData()) {
+        ipcRenderer.send('asynchronous-message', 'show');
+        clearInterval(loading_ckecker)
+      }
+    }
+
   </script>
 </head>
 
