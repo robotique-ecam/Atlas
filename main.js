@@ -33,6 +33,9 @@ function createWindow () {
     }
   })
 
+  // Open the DevTools.
+  win.webContents.openDevTools()
+
   // and load the index.html of the app.
   win.loadFile('index.html')
 
@@ -61,8 +64,6 @@ function createWindow () {
     event.returnValue = get_moves_path(rbsd_path)
   })
 
-  // Open the DevTools.
-  // win.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished

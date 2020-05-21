@@ -5,8 +5,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title></title>
-  <link type="text/css" href="https://www.cyberbotics.com/jquery-ui/1.11.4/jquery-ui.min.css" rel="stylesheet" />
-  <link type="text/css" href="https://www.cyberbotics.com/wwi/R2020a/wwi.css" rel="stylesheet" />
+  <link type="text/css" href="scripts/jquery-ui.min.css" rel="stylesheet" />
+  <link type="text/css" href="scripts/wwi.css" rel="stylesheet" />
   <style>
     html,
     body {
@@ -22,15 +22,13 @@
     }
   </style>
   <script>
-    const {
-      ipcRenderer
-    } = require('electron')
-    window.$ = window.jQuery = require('jquery')
-    require('jquery-ui-dist/jquery-ui')
-    require('./scripts/jquery.dialogextend.min.js')
+    const { ipcRenderer } = require('electron')
+    window.$ = window.jQuery = require('./scripts/jquery-3.5.1.min.js')
   </script>
-  <script src="./scripts/ace.js"></script>
-  <script src="./scripts/webots.min.js"></script>
+  <script src="scripts/jquery-ui.min.js"></script>
+  <script src="scripts/jquery.dialogextend.min.js"></script>
+  <script src="scripts/ace.js"></script>
+  <script src="scripts/webots.min.js"></script>
   <script>
     var view;
 
@@ -51,7 +49,6 @@
         clearInterval(loading_ckecker)
       }
     }
-
   </script>
 </head>
 
