@@ -8,6 +8,9 @@ var AdmZip = require('adm-zip');
 temp.track();
 
 var file_path = null
+if (process.platform == 'win32' && process.argv.length >= 2) {
+  file_path = process.argv[1];
+}
 
 
 function open_rbsd_file(rbsd_path) {
@@ -35,7 +38,7 @@ function createWindow () {
   })
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   // and load the index.html of the app.
   win.loadFile('index.html')
