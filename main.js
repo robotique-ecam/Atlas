@@ -29,7 +29,8 @@ function createWindow () {
     height: 600,
     show: false,
     webPreferences: {
-      nodeIntegration: true
+      preload: path.join(app.getAppPath(), 'preload.js'),
+      nodeIntegration: false
     }
   })
 
@@ -59,9 +60,11 @@ function createWindow () {
   ipcMain.on('get-rbsd-moves', (event, arg) => {
     if (file_path !== null) {
       arg = file_path
+      var rbsd_path = open_rbsd_file(arg)
+      event.returnValue = get_moves_path(rbsd_path)
+    } else {
+      event.returnValue = 'index.json'
     }
-    var rbsd_path = open_rbsd_file(arg)
-    event.returnValue = get_moves_path(rbsd_path)
   })
 
 }
