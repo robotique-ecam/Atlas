@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron')
+const { autoUpdater } = require("electron-updater");
 const fs = require('fs')
 const path = require('path')
 var temp = require('temp')
@@ -76,6 +77,10 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(createWindow)
+
+app.on('ready', function()  {
+  autoUpdater.checkForUpdatesAndNotify();
+});
 
 app.on('open-file', (event, path) => {
   file_path = path
