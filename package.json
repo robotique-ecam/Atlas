@@ -1,6 +1,6 @@
 {
   "name": "Atlas",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Atas .rbsd files viewer",
   "main": "main.js",
   "scripts": {
