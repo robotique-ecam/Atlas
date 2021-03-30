@@ -22,9 +22,14 @@ function open_rbsd_file(rbsd_path) {
 }
 
 function get_moves_path(tempDir) {
-  return path.join(tempDir, 'moves.json')
+  var moves_path = path.join(tempDir, 'moves.json')
+  return fs.existsSync(moves_path) ? moves_path : 'index.json'
 }
 
+function get_scene_path(tempDir) {
+  var scene_path = path.join(tempDir, 'scene.x3d')
+  return fs.existsSync(scene_path) ? scene_path : 'index.x3d'
+}
 
 function createWindow () {
   // Create the browser window.
@@ -34,7 +39,7 @@ function createWindow () {
     show: false,
     webPreferences: {
       preload: path.join(app.getAppPath(), 'preload.js'),
-      nodeIntegration: false
+      contextIsolation: false
     }
   })
 
@@ -65,9 +70,9 @@ function createWindow () {
     if (file_path !== null) {
       arg = file_path
       var rbsd_path = open_rbsd_file(arg)
-      event.returnValue = get_moves_path(rbsd_path)
+      event.returnValue = [get_moves_path(rbsd_path), get_scene_path(rbsd_path)]
     } else {
-      event.returnValue = 'index.json'
+      event.returnValue = ['index.json', 'index.x3d']
     }
   })
 

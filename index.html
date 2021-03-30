@@ -30,11 +30,10 @@
     var view;
 
     function init() {
-      var animation_file = ipcRenderer.sendSync('get-rbsd-moves')
+      var [moves, scene] = ipcRenderer.sendSync('get-rbsd-moves')
       view = new webots.View(document.getElementById("view3d"));
-      view.open("index.x3d");
-      console.log(animation_file)
-      view.setAnimation(animation_file, "play", true);
+      view.open(scene);
+      view.setAnimation(moves, "play", true);
     }
 
     window.addEventListener("load", init, false);

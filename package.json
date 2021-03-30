@@ -1,11 +1,11 @@
 {
   "name": "Atlas",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Atas .rbsd files viewer",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "pack": "electron-builder --dir",
+    "dev": "electron .",
+    "build": "electron-builder --dir",
     "dist": "electron-builder -mw"
   },
   "build": {
@@ -21,11 +21,13 @@
       "./textures/**",
       "./preload.js"
     ],
-    "publish": [{
-       "provider": "github",
-       "owner": "robotique-ecam",
-       "repo": "Atlas"
-     }],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "robotique-ecam",
+        "repo": "Atlas"
+      }
+    ],
     "fileAssociations": [
       {
         "ext": [
@@ -69,12 +71,12 @@
   },
   "homepage": "https://github.com/3wnbr1/Atlas#readme",
   "dependencies": {
-    "adm-zip": "^0.5.1",
-    "electron-updater": "^4.3.5",
+    "adm-zip": "^0.5.4",
+    "electron-updater": "^4.3.8",
     "temp": "^0.9.1"
   },
   "devDependencies": {
-    "electron": "^11.1.0",
-    "electron-builder": "^22.8.1"
+    "electron": "^12.0.2",
+    "electron-builder": "^22.10.5"
   }
 }
